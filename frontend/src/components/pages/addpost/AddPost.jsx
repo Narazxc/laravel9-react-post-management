@@ -9,13 +9,22 @@ export default function AddPost() {
   const [content, setContent] = useState("");
   const [creator, setCreator] = useState();
 
+  const [previewPicture, setPreviewPicture] = useState(null);
+
   const navigate = useNavigate();
 
-  // const clearForm = () => {
-  //   setTitle("");
-  //   setContent("");
-  //   setCreator();
-  // };
+  const clearForm = () => {
+    setTitle("");
+    setContent("");
+    setCreator();
+  };
+
+  const onChangePicture = (e) => {
+    // display preview picture
+    setPreviewPicture(URL.createObjectURL(e.target.files[0]));
+
+    setCreator(e.target.files[0]);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,12 +35,6 @@ export default function AddPost() {
     formData.append("content", content);
     formData.append("file", creator);
 
-    //  {
-    //     title,
-    //     content,
-    //     creator,
-    //   }
-
     axios({
       method: "post",
       url: "http://127.0.0.1:8000/posts",
@@ -41,10 +44,15 @@ export default function AddPost() {
       .then(function (response) {
         //handle success
         console.log(response);
+        clearForm();
+        if (response.data.msg == "upload success") {
+          navigate("/posts");
+        }
       })
-      .catch(function (response) {
+      .catch(function (error) {
         //handle error
-        console.log(response);
+        console.log(error);
+        clearForm();
       });
 
     // axios
@@ -61,8 +69,6 @@ export default function AddPost() {
     // console.log(formData);
 
     // console.log(title, content, creator);
-
-    // navigate("/posts");
   };
 
   return (
@@ -132,7 +138,7 @@ export default function AddPost() {
                       <input
                         id="file-upload"
                         name="file"
-                        onChange={(e) => setCreator(e.target.files[0])}
+                        onChange={onChangePicture}
                         // value={creator}
                         type="file"
                         className="sr-only"
@@ -146,6 +152,7 @@ export default function AddPost() {
                 </div>
               </div>
             </div>
+            <img className="" src={previewPicture && previewPicture}></img>
             <span className="ml-3 hidden sm:block">
               <button className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                 Submit
