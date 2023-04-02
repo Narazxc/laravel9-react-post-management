@@ -64,7 +64,10 @@ export default function Posts() {
                     {post.content}
                   </td>
                   <td className="border border-slate-700 ...">
-                    {post.creator}
+                    <img
+                      src={"http://127.0.0.1:8000/" + post.creator}
+                      alt="img"
+                    />
                   </td>
                   <td className="flex justify-center">
                     <Link

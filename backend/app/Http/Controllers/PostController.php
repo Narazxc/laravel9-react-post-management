@@ -22,18 +22,23 @@ class PostController extends Controller
     }
 
 
-    public function store() {
+    public function store(Request $request) {
 
         $post = new Post();
-        $post->title = request('title');
-        $post->content = request('content');
-        $post->creator = request('creator');
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $path = $request->file('file')->store('images');
+
+        $post->creator = $path;
+
+   
 
         $post->save();
 
         return ['msg' => 'upload success', 'post' => $post];
 
-    }
+    
+}
 
     public function show($id) {
 

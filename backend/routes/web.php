@@ -18,6 +18,10 @@ Route::get('/token', function () {
     return csrf_token(); 
 });
 
+Route::get('/', function () {
+    return 'Hello World';
+});
+
 Route::controller(PostController::class)->group(function () {
     Route::get('/posts', 'index');
     Route::get('/posts/{id}', 'show');
