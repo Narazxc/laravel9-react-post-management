@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,9 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/token', function () {
-    return csrf_token(); 
-});
+// Route::get('/token', function () {
+//     return csrf_token(); 
+// });
 
 Route::get('/', function () {
     return 'Hello World';
@@ -28,5 +29,11 @@ Route::controller(PostController::class)->group(function () {
     Route::post('/posts', 'store');
     Route::put('/posts/{id}', 'update');
     Route::delete('/posts/{id}', 'destroy');
+    
+});
+
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('/categories', 'index');
+    Route::post('/categories', 'store');
     
 });

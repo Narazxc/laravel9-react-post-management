@@ -4,12 +4,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // components
 import Navbar from "./components/Navbar";
 
-// component pages
+// page components
 import Home from "./components/pages/Home";
 import Contact from "./components/pages/Contact";
 import About from "./components/pages/About";
 import Posts from "./components/pages/Posts";
 import Post from "./components/pages/Post";
+import Categories from "./components/pages/Categories";
 
 // styles
 import "./App.css";
@@ -24,6 +25,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/categories" element={<Categories />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/addpost" element={<AddPost />} />

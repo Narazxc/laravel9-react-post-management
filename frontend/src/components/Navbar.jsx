@@ -7,9 +7,12 @@ export default function Navbar() {
         <h2 className="ml-4 text-xl font-bold text-gray-800">
           <Link to="/">Posthub</Link>
         </h2>
-        <ul className="flex justify-evenly w-44">
+        <ul className="flex justify-evenly gap-8">
           <li>
             <Link to="/posts">Posts</Link>
+          </li>
+          <li>
+            <Link to="/categories">Manage Category</Link>
           </li>
           <li>
             <Link to="/contact">Contact</Link>
