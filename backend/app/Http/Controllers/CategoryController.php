@@ -11,13 +11,7 @@ class CategoryController extends Controller
     public function index() {
 
         // $categories = [['name' => 'food'], ['name' => 'food'], ['name' => 'food'], ['name' => 'food']];
-        
-
-        // $categories = array();
-        // foreach (Categories::all() as $category) {
-        // $categories[$category->id] = $category->name;
-        // }
-
+    
 
     $categories = Category::orderBy("id", "asc")->get();
 
@@ -54,10 +48,11 @@ class CategoryController extends Controller
 
 
 
-    // public function destroy($id) {
+    public function destroy($id) {
 
-    //     $post->delete();   
-    // }
+        $category = Category::findOrFail($id);
+        $category->delete();   
+    }
 
 
 

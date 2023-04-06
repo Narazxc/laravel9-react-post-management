@@ -35,5 +35,7 @@ Route::controller(PostController::class)->group(function () {
 Route::controller(CategoryController::class)->group(function () {
     Route::get('/categories', 'index');
     Route::post('/categories', 'store');
+    Route::put('/posts/{id}', 'update');
+    Route::delete('/categories/{id}', 'destroy');
     
 });
