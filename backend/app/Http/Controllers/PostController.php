@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Category;
+
 
 class PostController extends Controller
 {
@@ -24,21 +26,24 @@ class PostController extends Controller
 
     public function store(Request $request) {
 
+        
+
         $post = new Post();
         $post->title = $request->input('title');
         $post->content = $request->input('content');
-        $path = $request->file('file')->store('images');
 
+        $path = $request->file('file')->store('images');
         $post->creator = $path;
 
-   
+        $post->category_id = $request->input('category');
+
+        
 
         $post->save();
 
         return ['msg' => 'upload success', 'post' => $post];
 
-    
-}
+    }
 
     public function show($id) {
 

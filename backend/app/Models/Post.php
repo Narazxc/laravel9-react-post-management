@@ -10,6 +10,15 @@ class Post extends Model
 {
     use HasFactory;
 
+        /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'category_id' => 'integer',
+    ];
+
 
     public function category(): BelongsTo
     {

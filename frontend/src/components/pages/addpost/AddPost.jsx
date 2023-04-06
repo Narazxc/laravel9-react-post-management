@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -8,6 +8,11 @@ export default function AddPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [creator, setCreator] = useState();
+  // const [inputCategory, setInputCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [previewPicture, setPreviewPicture] = useState(null);
 
@@ -17,6 +22,32 @@ export default function AddPost() {
     setTitle("");
     setContent("");
     setCreator();
+  };
+
+  useEffect(() => {
+    try {
+      setError(null);
+      setIsLoading(true);
+
+      axios.get("http://127.0.0.1:8000/categories").then((res) => {
+        const { categories } = res.data;
+        // set default selection for category
+        setSelectedCategory(categories[0].id);
+        console.log(selectedCategory);
+        setCategories(categories);
+      });
+
+      setIsLoading(false);
+      setError(null);
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+      setError(error);
+    }
+  }, []);
+
+  const handleSelect = (e) => {
+    setSelectedCategory(e.target.value);
   };
 
   const onChangePicture = (e) => {
@@ -34,6 +65,7 @@ export default function AddPost() {
     formData.append("title", title);
     formData.append("content", content);
     formData.append("file", creator);
+    formData.append("category", selectedCategory);
 
     axios({
       method: "post",
@@ -54,6 +86,12 @@ export default function AddPost() {
         console.log(error);
         clearForm();
       });
+
+    // const titlew = formData.get("title");
+    // const con = formData.get("content");
+    // const cat = formData.get("category");
+
+    // console.log(titlew, con, cat);
 
     // axios
     //   .post("http://127.0.0.1:8000/posts", formData)
@@ -126,6 +164,25 @@ export default function AddPost() {
                 />
               </div>
             </div> */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium leading-6 text-gray-900">
+                Category
+              </label>
+              <div className="mt-2">
+                <select
+                  onChange={handleSelect}
+                  name="category"
+                  value={selectedCategory}
+                >
+                  {categories &&
+                    categories.map((category) => (
+                      <Fragment key={category.id}>
+                        <option value={category.id}>{category.name}</option>
+                      </Fragment>
+                    ))}
+                </select>
+              </div>
+            </div>
             <div className="col-span-full">
               <label className="block text-sm font-medium leading-6 text-gray-900">
                 Cover photo

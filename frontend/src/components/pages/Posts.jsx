@@ -46,7 +46,7 @@ export default function Posts() {
         </div>
       </div>
       <div className="flex justify-center">
-        <table className="border-collapse border border-slate-500 w-3/4 text-xl">
+        <table className="border-collapse border border-slate-500 w-3/4 text-xl rounded-xl">
           <thead>
             <tr>
               <th className="border border-slate-600 ...">Title</th>

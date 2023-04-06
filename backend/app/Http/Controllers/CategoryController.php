@@ -13,7 +13,13 @@ class CategoryController extends Controller
         // $categories = [['name' => 'food'], ['name' => 'food'], ['name' => 'food'], ['name' => 'food']];
         
 
-    $categories = Category::latest()->get();
+        // $categories = array();
+        // foreach (Categories::all() as $category) {
+        // $categories[$category->id] = $category->name;
+        // }
+
+
+    $categories = Category::orderBy("id", "asc")->get();
 
     return ['categories' => $categories];
 

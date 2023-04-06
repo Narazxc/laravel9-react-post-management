@@ -31,6 +31,7 @@ export default function Categories() {
       <table className="table-auto">
         <thead>
           <tr>
+            <th>id</th>
             <th>Categories</th>
           </tr>
         </thead>
@@ -38,6 +39,7 @@ export default function Categories() {
           {categories &&
             categories.map((category) => (
               <tr key={category.id}>
+                <td>{category.id}</td>
                 <td>{category.name}</td>
               </tr>
             ))}
