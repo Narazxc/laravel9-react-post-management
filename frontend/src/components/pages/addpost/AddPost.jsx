@@ -8,7 +8,6 @@ export default function AddPost() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [creator, setCreator] = useState();
-  // const [inputCategory, setInputCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [error, setError] = useState(null);
@@ -33,7 +32,6 @@ export default function AddPost() {
         const { categories } = res.data;
         // set default selection for category
         setSelectedCategory(categories[0].id);
-        console.log(selectedCategory);
         setCategories(categories);
       });
 
@@ -45,6 +43,7 @@ export default function AddPost() {
       setError(error);
     }
   }, []);
+  console.log("selected", selectedCategory);
 
   const handleSelect = (e) => {
     setSelectedCategory(e.target.value);
@@ -209,7 +208,7 @@ export default function AddPost() {
                 </div>
               </div>
             </div>
-            <img className="" src={previewPicture && previewPicture}></img>
+            <img className="" src={previewPicture && previewPicture} />
             <span className="ml-3 hidden sm:block">
               <button className="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
                 Submit
